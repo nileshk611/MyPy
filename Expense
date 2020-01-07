@@ -1,0 +1,35 @@
+#This is extenstion to Expense_Analyzer.py, in this i added a function and iterate thru the expense types (ATW,POS,NEFT and so on)
+
+import pandas as pd
+
+#Take Input
+print('Please enter the Expense File Name')
+input_excel = input()
+
+#list to append it later
+l1 = []
+l2 = ['ATW','NEFT','POS','MF','MUT']
+
+#Pass the Input
+df1 = pd.read_excel(input_excel)
+
+def expense_type(exp_typ): #Function to check and return the expense for a type passed.
+    for index, row in df1.iterrows():
+        try:
+            #str = (row['Narration'])
+            #print(exp_typ)
+            if exp_typ in row['Narration']:
+                #print('in if')
+                #str1 = (row['Value Dt']) #fetch date column
+                #str_mon = str1.strftime("%B") #fetch month from date
+                l1.append ([row['Narration'],row['Withdrawal Amt'],row['Deposit Amt']]) #This appends the list of columns in a loop
+                #print(l1)
+               
+        except ValueError:
+            print('error')
+    return l1 #take care of indentation.
+    
+for i in l2:
+    exp_det = expense_type(i)
+df2 = pd.DataFrame(exp_det)
+print(df2)
